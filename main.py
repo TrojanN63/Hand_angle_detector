@@ -37,9 +37,11 @@ with mp_hand.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) as
                 angle_deg = angle_deg % 360
                 
                 angle_deg = round(angle_deg, 2)
+
+                cos = round(math.cos(angle_rad), 3)
                 
-                cv.putText(frame, f"Angulo: {angle_deg} graus", (10, 30), 
-                          cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv.putText(frame, f"Angulo: {angle_deg} graus", (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv.putText(frame, f'Cos: {cos}', (10,60), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
             
         if istrue:
             cv.imshow("it's you", frame)
