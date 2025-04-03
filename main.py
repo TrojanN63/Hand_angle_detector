@@ -1,6 +1,10 @@
 import cv2 as cv
 import mediapipe as mp
 import math
+import paho.mqtt.client as mqtt
+
+client = mqtt.Client(client_id="angle_detector")
+client.connect("127.0.0.1", 1883, 15)
 
 video = cv.VideoCapture(0)
 
@@ -42,6 +46,8 @@ with mp_hand.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) as
                 
             cv.putText(frame, f"Angulo: {angle_deg} graus", (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv.putText(frame, f'Cos: {cos}', (10,60), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+
+            client.publish("dev9840ss", str(cos))
             
         if istrue:
             cv.imshow("it's you", frame)
